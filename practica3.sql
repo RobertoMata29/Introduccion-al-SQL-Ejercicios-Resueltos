@@ -1,8 +1,8 @@
 /*Escriba una consulta para mostrar la fecha actual. Etiquete la columna como Date.*/
 select SYSDATE from DUAL;
 
-/*2. Para cada empleado, visualice su n˙mero, apellido, salario y salario incrementado en el 15 % y
-expresado como n˙mero entero. Etiquete la columna como New Salary. Ponga la sentencia
+/*2. Para cada empleado, visualice su n√∫mero, apellido, salario y salario incrementado en el 15 % y
+expresado como n√∫mero entero. Etiquete la columna como New Salary. Ponga la sentencia
 SQL en un archivo de texto llamado lab3_2.sql.*/
 select employee_id, last_name,salary, trunc(salary*1.15,0) "New Salary" from employees order by employee_id desc;
 
@@ -14,9 +14,9 @@ select employee_id, last_name,salary, trunc(salary*1.15,0) "New Salary", (trunc(
 
 /*
 5. Escriba una consulta que muestre los apellidos de los empleados con la primera letra en
-may˙sculas y todas las dem·s en min˙sculas, asÌ como la longitud de los nombres, para todos
+may√∫sculas y todas las dem√°s en min√∫sculas, as√≠ como la longitud de los nombres, para todos
 los empleados cuyos nombres comienzan por J, A o M. Asigne a cada columna la etiqueta
-correspondiente. Ordene los resultados seg˙n los apellidos de los empleados.*/
+correspondiente. Ordene los resultados seg√∫n los apellidos de los empleados.*/
 
 select INITCAP(last_name) "Last name", LENGTH(first_name) "Last name length" 
 from employees 
@@ -25,10 +25,10 @@ where last_name like 'A%'
       or last_name like 'M%' order by last_name asc;
       
 /*
-6. Para cada empleado, muestre su apellido y calcule el n˙mero de meses entre el dÌa de hoy y la
-fecha de contrataciÛn. Etiquete la columna como MONTHS_WORKED. Ordene los resultados
-seg˙n el n˙mero de meses trabajados. Redondee el n˙mero de meses hacia arriba hasta el
-n˙mero entero m·s prÛximo.*/
+6. Para cada empleado, muestre su apellido y calcule el n√∫mero de meses entre el d√≠a de hoy y la
+fecha de contrataci√≥n. Etiquete la columna como MONTHS_WORKED. Ordene los resultados
+seg√∫n el n√∫mero de meses trabajados. Redondee el n√∫mero de meses hacia arriba hasta el
+n√∫mero entero m√°s pr√≥ximo.*/
 
 SELECT LAST_NAME, ROUND(MONTHS_BETWEEN(SYSDATE,HIRE_DATE),0) "MONTHS_WORKED"
   from employees order by MONTHS_BETWEEN( HIRE_DATE, SYSDATE);
@@ -41,7 +41,7 @@ salary>. Etiquete la columna como Dream Salaries.*/
 
 SELECT CONCAT(last_name,CONCAT(' earns ',CONCAT(salary,CONCAT(' montly but wants ', 3*salary))))  "Dream Salaries" from employees;
 
-/* o tambiÈn*/
+/* o tambi√©n*/
 
 SELECT (last_name || ' earns ' || salary || ' montly but wants ' || 3 * salary) "Deam Salaries 2" FROM EMPLOYEES;
 
@@ -53,15 +53,15 @@ SALARY.*/
 SELECT LAST_NAME, LPAD(SALARY,15,'$') "SALARY" FROM EMPLOYEES;
 
 /*
-9. Muestre el apellido de cada empleado, asÌ como la fecha de contrataciÛn y la fecha de revisiÛn
-de salario, que es el primer lunes despuÈs de cada seis meses de servicio. Etiquete la columna
-REVIEW. Formatee las fechas para que aparezca en un formato similar a ìMonday, the ThirtyFirst of July, 2000î.*/
+9. Muestre el apellido de cada empleado, as√≠ como la fecha de contrataci√≥n y la fecha de revisi√≥n
+de salario, que es el primer lunes despu√©s de cada seis meses de servicio. Etiquete la columna
+REVIEW. Formatee las fechas para que aparezca en un formato similar a ‚ÄúMonday, the ThirtyFirst of July, 2000‚Äù.*/
 
 SELECT LAST_NAME,HIRE_DATE, TO_CHAR(NEXT_DAY(ADD_MONTHS(HIRE_DATE,6),'VIERNES'), 'DAY ", the" fmDdspth "of" MONTH"," YYYY') "REVIEW_DATE" from employees;
 
 /*
-10. Muestre el apellido, la fecha de contrataciÛn y el dÌa de la semana en el que comenzÛ el
-empleado. Etiquete la columna DAY. Ordene los resultados por dÌa de la semana, comenzan
+10. Muestre el apellido, la fecha de contrataci√≥n y el d√≠a de la semana en el que comenz√≥ el
+empleado. Etiquete la columna DAY. Ordene los resultados por d√≠a de la semana, comenzan
 por el lunes.*/
 
 SELECT LAST_NAME, HIRE_DATE, TO_CHAR(HIRE_DATE,'DAY') "Day" 
@@ -72,20 +72,20 @@ order by
   
 /*
 11. Cree una consulta que muestre el apellido y las comisiones de los empleados. Si un empleado
-no gana comisiÛn, ponga ìNo Commissionî. Etiquete la columna COMM.*/
+no gana comisi√≥n, ponga ‚ÄúNo Commission‚Äù. Etiquete la columna COMM.*/
 
 SELECT LAST_NAME, NVL2(COMMISSION_PCT,TO_CHAR(COMMISSION_PCT), 'No commission') "COMM" from employees;
 
 /*
 12. Cree una consulta que muestre el apellido de los empleados y que indique las cantidades de sus
-salarios anuales con asteriscos. Cada asterisco significa mil dÛlares. Ordene los datos por
+salarios anuales con asteriscos. Cada asterisco significa mil d√≥lares. Ordene los datos por
 salario en orden descendente. Etiquete la columna EMPLOYEES_AND_THEIR_SALARIES*/
 
-SELECT (LAST_NAME || ' ' ||  LPAD(' ', SALARY / 1000 + 1, '*')), SALARY/1000 "EMPLOYEES_AND_THEIR_SALARIES" from EMPLOYEES;
+SELECT (LAST_NAME || ' ' ||  LPAD(' ', SALARY / 1000 + 1, '*')), SALARY/1000 "EMPLOYEES_AND_THEIR_SALARIES" ORDER BY EMPLOYEES_AND_THEIR_SALARIES DESC from EMPLOYEES;
 
 /*
-13. Utilizando la funciÛn DECODE, escriba una consulta que muestre el grado de todos los empleados
-bas·ndose en el valor de la columna JOB_ID, seg˙n los datos siguientes:
+13. Utilizando la funci√≥n DECODE, escriba una consulta que muestre el grado de todos los empleados
+bas√°ndose en el valor de la columna JOB_ID, seg√∫n los datos siguientes:
   
   Cargo       Grado
   AD_PRES     A
